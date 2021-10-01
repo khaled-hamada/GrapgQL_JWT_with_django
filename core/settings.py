@@ -41,7 +41,10 @@ INSTALLED_APPS = [
 
     # third parity apps
     "graphene_django",
-
+    'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
+     "graphql_auth",
+    'django_filters',
+    
     #my apps 
     'book',
     'quiz',
@@ -114,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Cairo'
 
 USE_I18N = True
 
@@ -135,3 +138,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #custom Settings 
 AUTH_USER_MODEL = 'users.ExtendUser'
+
+GRAPHENE = {
+    "SCHEMA": "users.schema.schema",
+    "MIDDLEWARE": [
+        "graphql_jwt.middleware.JSONWebTokenMiddleware",
+    ],
+}
+
+AUTHENTICATION_BACKENDS = [
+    # "graphql_jwt.backends.JSONWebTokenBackend",
+    "graphql_auth.backends.GraphQLAuthBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
